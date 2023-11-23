@@ -37,7 +37,7 @@ function App() {
   return (
     <div className="App">
       <nav>
-        <p>Nifty: {ltpData.Nifty}</p>
+        <p>Nifty:{ltpData.Nifty}</p>
         <p>BankNifty: {ltpData.Banknifty}</p>
         <p>FinNifty: {ltpData.Finnifty}</p>
       </nav>
