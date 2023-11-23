@@ -1,44 +1,48 @@
-// App.js
-import { useState } from "react";
-import CandlestickChart from "./Components/CandlestickChart";
-import WebSocketConnection from "./Components/WebSocketConnection";
+import "./App.css";
+import { useEffect, useState } from "react";
 
-const App = () => {
+function App() {
   const [ltpData, setLtpData] = useState({});
-  const [selectedInstrument, setSelectedInstrument] = useState("Nifty");
-  const [selectedTimeframe, setSelectedTimeframe] = useState("1min");
 
-  const handleData = (data) => {
-    setLtpData(data);
-  };
+  useEffect(() => {
+    const socket = new WebSocket(
+      "wss://functionup.fintarget.in/ws?id=fintarget-functionup"
+    );
+    socket.onopen = () => {
+      console.log("Connected to WebSocket");
+    };
 
-  const handleInstrumentChange = (e) => {
-    setSelectedInstrument(e.target.value);
-  };
+    socket.onmessage = (event) => {
+      // console.log("Received message:", event.data);
+      const data = JSON.parse(event.data);
+      // console.log(data);
+      setLtpData(data);
+    };
 
-  const handleTimeframeChange = (e) => {
-    setSelectedTimeframe(e.target.value);
-  };
-  const name = "faizan";
+    socket.onerror = (error) => {
+      console.error("WebSocket Error:", error);
+    };
+
+    // socket.onclose = (event) => {
+    //   console.log("WebSocket Closed:", event);
+    // };
+
+    return () => {
+      socket.close();
+    };
+  }, []);
+
+  console.log(ltpData);
+
   return (
-    <div>
-      <WebSocketConnection onData={handleData} />
-      <h1>Last Traded Price</h1>
-      <p>{ltpData[selectedInstrument]}</p>
-      <select value={selectedInstrument} onChange={handleInstrumentChange}>
-        <option value="Nifty">Nifty</option>
-        <option value="BankNifty">BankNifty</option>
-        <option value="FinNifty">FinNifty</option>
-      </select>
-      <select value={selectedTimeframe} onChange={handleTimeframeChange}>
-        <option value="1min">1 Minute</option>
-        <option value="3min">3 Minutes</option>
-        <option value="5min">5 Minutes</option>
-      </select>
-      {/* <CandlestickChart data={} /> */}
-      <CandlestickChart data={name} />
+    <div className="App">
+      <nav>
+        <p>Nifty: {ltpData.Nifty}</p>
+        <p>BankNifty: {ltpData.Banknifty}</p>
+        <p>FinNifty: {ltpData.Finnifty}</p>
+      </nav>
     </div>
   );
-};
+}
 
 export default App;
