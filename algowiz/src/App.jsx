@@ -1,9 +1,9 @@
 import "./App.css";
 import { useEffect, useState } from "react";
+import Chart from "./Components/Chart";
 
 function App() {
-  const [ltpData, setLtpData] = useState({});
-
+  const [ltpData, setLtpData] = useState([]);
   useEffect(() => {
     const socket = new WebSocket(
       "wss://functionup.fintarget.in/ws?id=fintarget-functionup"
@@ -32,7 +32,7 @@ function App() {
     };
   }, []);
 
-  console.log(ltpData);
+  // console.log(ltpData);
 
   return (
     <div className="App">
@@ -41,6 +41,8 @@ function App() {
         <p>BankNifty: {ltpData.Banknifty}</p>
         <p>FinNifty: {ltpData.Finnifty}</p>
       </nav>
+
+      <Chart chartData={ltpData} />
     </div>
   );
 }
