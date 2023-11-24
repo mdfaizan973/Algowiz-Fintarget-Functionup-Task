@@ -9,20 +9,62 @@ nav {
   margin-bottom: 20px;
   background-color: rgb(235, 235, 235) (129, 116, 116);
 }
-
-nav p {
-  margin: 0;
-  font-size: 18px;
+img {
+  width: 150px;
+}
+p {
+  display: inline-block;
+  padding: 4px 12px;
+  background-color: rgb(10, 168, 34);
+  color: #fff;
+  border-radius: 20px;
+  margin: 5px;
 }
 
-nav a {
-  color: rgb(0, 0, 0);
+p:hover {
+  background-color: rgb(230, 33, 33);
+  cursor: pointer;
+}
+.middle-Comtent {
+  display: flex;
+  width: 95%;
+  justify-content: space-between;
+  margin: auto;
+}
+.sidebar {
+  width: 19%;
+  overflow-x: hidden;
+  padding-top: 20px;
+  height: 80vh;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color: rgb(235, 235, 235) (129, 116, 116);
+  border-radius: 20px;
+}
+.charts {
+  width: 79%;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 20px;
+  height: 100%;
+  padding: 10px;
+}
+
+.sidebar a {
+  padding: 8px 10px 8px 32px;
+  border: 1px dotted rgb(181, 181, 181);
   text-decoration: none;
-  margin: 0 15px;
-  font-weight: bold;
-  transition: color 0.3s ease;
+  font-size: 18px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+  margin-top: 15px;
 }
 
-nav a:hover {
-  color: #ffc107;
+.sidebar a:hover {
+  border: 1px dotted rgb(0, 0, 0);
+  color: #d5d4d4;
+}
+
+.content {
+  margin-left: 250px;
+  padding: 16px;
 }

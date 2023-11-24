@@ -37,12 +37,33 @@ function App() {
   return (
     <div className="App">
       <nav>
-        <p>Nifty:{ltpData.Nifty}</p>
-        <p>BankNifty: {ltpData.Banknifty}</p>
-        <p>FinNifty: {ltpData.Finnifty}</p>
+        <img src="https://algowiz.in/_next/image?url=%2Flogo.png&w=256&q=75" />
+        <div>
+          <p>Nifty:{ltpData.Nifty}</p>
+          <p>BankNifty: {ltpData.Banknifty}</p>
+          <p>FinNifty: {ltpData.Finnifty}</p>
+        </div>
       </nav>
 
-      <Chart chartData={ltpData} />
+      <div className="middle-Comtent">
+        <div className="sidebar">
+          <img
+            style={{ marginLeft: "80px", width: "100px" }}
+            src="https://algowiz.in/_next/image?url=%2Flogo.png&w=256&q=75"
+          />
+
+          <a href="#home">Home</a>
+          <a href="#nifty">Nifty:{ltpData.Nifty}</a>
+          <a href="#bankNifty">BankNifty: {ltpData.Banknifty}</a>
+          <a href="#finNifty">FinNifty: {ltpData.Finnifty}</a>
+          <a href="#services">Services</a>
+          <a href="#contact">Contact</a>
+          <a href="#settings">Settings</a>
+        </div>
+        <div className="charts">
+          <Chart chartData={ltpData} />
+        </div>
+      </div>
     </div>
   );
 }
