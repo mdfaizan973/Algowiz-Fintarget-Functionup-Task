@@ -4,23 +4,24 @@ import Chart from "./Components/Chart";
 
 function App() {
   const [ltpData, setLtpData] = useState([]);
+  const [selectedAxis, setSelectedAxis] = useState("Nifty");
+
   useEffect(() => {
     const socket = new WebSocket(
       "wss://functionup.fintarget.in/ws?id=fintarget-functionup"
     );
+
     socket.onopen = () => {
       console.log("Connected to WebSocket");
     };
 
     socket.onmessage = (event) => {
-      // console.log("Received message:", event.data);
       const data = JSON.parse(event.data);
-      // console.log(data);
       setLtpData(data);
     };
 
     socket.onerror = (error) => {
-      console.error("WebSocket Error:", error);
+      console.error(error);
     };
 
     // socket.onclose = (event) => {
@@ -31,17 +32,22 @@ function App() {
       socket.close();
     };
   }, []);
-
-  // console.log(ltpData);
+  const handleAxisChange = (selectedAxis) => {
+    setSelectedAxis(selectedAxis);
+  };
 
   return (
     <div className="App">
       <nav>
         <img src="https://algowiz.in/_next/image?url=%2Flogo.png&w=256&q=75" />
         <div>
-          <p>Nifty:{ltpData.Nifty}</p>
-          <p>BankNifty: {ltpData.Banknifty}</p>
-          <p>FinNifty: {ltpData.Finnifty}</p>
+          <p onClick={() => handleAxisChange("Nifty")}>Nifty:{ltpData.Nifty}</p>
+          <p onClick={() => handleAxisChange("Banknifty")}>
+            BankNifty: {ltpData.Banknifty}
+          </p>
+          <p onClick={() => handleAxisChange("Finnifty")}>
+            FinNifty: {ltpData.Finnifty}
+          </p>
         </div>
       </nav>
 
@@ -61,7 +67,7 @@ function App() {
           <a href="#settings">Settings</a>
         </div>
         <div className="charts">
-          <Chart chartData={ltpData} />
+          <Chart chartdata={ltpData} selectedAxis={selectedAxis} />
         </div>
       </div>
     </div>

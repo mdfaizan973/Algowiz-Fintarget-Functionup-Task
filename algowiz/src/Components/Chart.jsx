@@ -1,71 +1,70 @@
-import { useEffect } from "react";
-import Highcharts from "highcharts/highstock";
-import HCMore from "highcharts/highcharts-more";
+import { useState, useEffect } from "react";
+import ReactApexChart from "react-apexcharts";
+import "../App.css";
+const Chart = ({ chartdata, selectedAxis }) => {
+  const [series, setSeries] = useState([]);
 
-// Initialize the Highcharts More module
-HCMore(Highcharts);
+  const generateRandomData = () => {
+    return Array.from({ length: 30 }, (_, i) => {
+      const randomY = Array.from(
+        { length: 4 },
+        () => Math.random() * 10 + chartdata[selectedAxis]
+      );
 
-const Chart = (ltpData) => {
-  let myData = ltpData.chartData;
-  console.log(myData);
+      return {
+        x: new Date().getTime() + i * 60000,
+        y: randomY,
+      };
+    });
+  };
 
-  //  const dataArray = Object.entries(ltpData.chartData).map(
-  //           ([key, value]) => [key, ...value]
-  //         );
-  // const transformedData = Object.entries(myData).map(([date, values]) => ({
-  //   x: new Date(date).getTime(), // Convert date to timestamp
-  //   open: values.open,
-  //   high: values.high,
-  //   low: values.low,
-  //   close: values.close,
-  // }));
+  const chartOptions = {
+    chart: {
+      type: "candlestick",
+      height: 350,
+      background: "#f5f5f5",
+    },
+    title: {
+      text: "CandleStick Chart",
+      align: "left",
+      style: {
+        fontSize: "20px",
+      },
+    },
+    xaxis: {
+      type: "datetime",
+    },
+    yaxis: {
+      tooltip: {
+        enabled: true,
+      },
+    },
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetch(
-        "https://demo-live-data.highcharts.com/aapl-ohlc.json"
-      ).then((response) => response.json());
-      const isUpLineColorGreen = true;
+    if (!selectedAxis || !chartdata[selectedAxis]) {
+      console.error("Invalid selectedAxis:", selectedAxis);
+      return;
+    }
 
-      Highcharts.stockChart("container", {
-        rangeSelector: {
-          selected: 1,
-        },
-        title: {
-          text: "AAPL Stock Price",
-        },
-        plotOptions: {
-          candlestick: {
-            color: isUpLineColorGreen ? "green" : "red",
-            upColor: isUpLineColorGreen ? "green" : "red",
-            lineColor: isUpLineColorGreen ? "green" : "red",
-            upLineColor: isUpLineColorGreen ? "green" : "red",
+    setSeries([
+      {
+        data: generateRandomData(),
+      },
+    ]);
+  }, [chartdata, selectedAxis]);
 
-            borderColor: "red",
-            downColor: "red",
-            downLineColor: "red",
-          },
-        },
-        series: [
-          {
-            type: "candlestick",
-            name: "AAPL Stock Price",
-            data: data,
-            dataGrouping: {
-              units: [
-                ["week", [1]],
-                ["month", [1, 2, 3, 4, 6]],
-              ],
-            },
-          },
-        ],
-      });
-    };
-
-    fetchData();
-  }, []);
-
-  return <div id="container">Chart</div>;
+  return (
+    <div className="chart-container">
+      <h2 className="chart-heading">{selectedAxis}</h2>
+      <ReactApexChart
+        options={chartOptions}
+        series={series}
+        type="candlestick"
+        height={350}
+      />
+    </div>
+  );
 };
 
 export default Chart;

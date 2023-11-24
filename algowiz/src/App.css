@@ -68,3 +68,14 @@ p:hover {
   margin-left: 250px;
   padding: 16px;
 }
+/* .chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.chart-heading {
+  font-size: 18px;
+  font-weight: bold;
+} */
