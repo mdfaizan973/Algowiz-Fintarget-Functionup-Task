@@ -4,7 +4,7 @@ import Chart from "./Components/Chart";
 
 function App() {
   const [ltpData, setLtpData] = useState([]);
-  const [selectedAxis, setSelectedAxis] = useState("Nifty");
+  const [selectNifty, seSelectNifty] = useState("Nifty");
 
   useEffect(() => {
     const socket = new WebSocket(
@@ -33,7 +33,7 @@ function App() {
     };
   }, []);
   const handleAxisChange = (selectedAxis) => {
-    setSelectedAxis(selectedAxis);
+    seSelectNifty(selectedAxis);
   };
 
   return (
@@ -59,15 +59,21 @@ function App() {
           />
 
           <a href="#home">Home</a>
-          <a href="#nifty">Nifty:{ltpData.Nifty}</a>
-          <a href="#bankNifty">BankNifty: {ltpData.Banknifty}</a>
-          <a href="#finNifty">FinNifty: {ltpData.Finnifty}</a>
+          <a href="#nifty" onClick={() => handleAxisChange("Nifty")}>
+            Nifty:{ltpData.Nifty}
+          </a>
+          <a href="#bankNifty" onClick={() => handleAxisChange("Banknifty")}>
+            BankNifty: {ltpData.Banknifty}
+          </a>
+          <a href="#finNifty" onClick={() => handleAxisChange("Finnifty")}>
+            FinNifty: {ltpData.Finnifty}
+          </a>
           <a href="#services">Services</a>
           <a href="#contact">Contact</a>
           <a href="#settings">Settings</a>
         </div>
         <div className="charts">
-          <Chart chartdata={ltpData} selectedAxis={selectedAxis} />
+          <Chart chartdata={ltpData} selectNifty={selectNifty} />
         </div>
       </div>
     </div>

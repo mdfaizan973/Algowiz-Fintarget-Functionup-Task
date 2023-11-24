@@ -61,21 +61,17 @@ p:hover {
 
 .sidebar a:hover {
   border: 1px dotted rgb(0, 0, 0);
-  color: #d5d4d4;
+  color: #131313;
+  background-color: rgb(179, 177, 177);
 }
 
 .content {
   margin-left: 250px;
   padding: 16px;
 }
-/* .chart-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 20px;
-}
 
-.chart-heading {
-  font-size: 18px;
+.heading {
+  font-size: 2rem;
   font-weight: bold;
-} */
+  color: red;
+}
